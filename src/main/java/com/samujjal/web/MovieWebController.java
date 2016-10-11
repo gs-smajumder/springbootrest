@@ -1,30 +1,25 @@
 package com.samujjal.web;
 
-import com.samujjal.domain.Movie;
+import com.samujjal.elasticsearch.document.Movie;
+import com.samujjal.service.MovieService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.net.URI;
-import java.net.URISyntaxException;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Created by samujjal on 17/09/16.
  */
 @Controller
 public class MovieWebController {
+    @Autowired
+    MovieService movieService;
 
-    @RequestMapping("/movie")
-    public String movie(Model model){
-        Movie movie = new Movie();
-        movie.setId("AVctZ8QZsCCb4R14LRps");
-        try {
-            movie.setEventUrl(new URI("http://in.bmscdn.com/events/Large/ET00046487.jpg"));
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        movie.setName("Just Aakasmika");
-        movie.setSynopsis("fter being adopted by his ageing parents, S");
+    @RequestMapping(value = "/movie/{id}", method = RequestMethod.GET)
+    public String movie(Model model, @PathVariable("id") String id){
+        Movie movie = movieService.getMovie(id);
         model.addAttribute("movie", movie);
         return "moviesview";
     }

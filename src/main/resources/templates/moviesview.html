@@ -1,10 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Movie Details</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p th:text="'Hello, ' + ${movie.name} + '!'" />
+<table>
+    <tr>
+        <td>Movie Name:</td>
+        <td th:text="${movie.getEventName()}"></td>
+    </tr>
+    <tr>
+        <td rowspan="3"><img th:src="${movie.getImgurl()}"/></td>
+    </tr>
+    <tr>
+        <td>Event Date:</td>
+        <td th:text="${movie.getEventDate()}"></td>
+    </tr>
+    <tr>
+        <td>Synopsis:</td>
+        <td th:text="${movie.getEventSynopsis()}"></td>
+    </tr>
+</table>
 </body>
 </html>

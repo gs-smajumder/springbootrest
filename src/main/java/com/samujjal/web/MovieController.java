@@ -1,13 +1,15 @@
 package com.samujjal.web;
 
-import com.samujjal.domain.Movie;
+import com.google.common.collect.Lists;
+import com.samujjal.elasticsearch.document.Movie;
 import com.samujjal.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * Created by samujjal on 16/09/16.
@@ -19,13 +21,13 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
-    @RequestMapping("/all")
-    public Map<Integer, Movie> getMovies(){
-        return movieService.getAllMovies();
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<Movie> getMovies(){
+        return Lists.newArrayList(movieService.getAllMovies());
     }
 
-    @RequestMapping("{id}")
-    public Movie getMovie(@PathVariable("id") int id){
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public Movie getMovie(@PathVariable("id") String id){
         return movieService.getMovie(id);
     }
 
